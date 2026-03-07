@@ -1,0 +1,84 @@
+{% extends "index.html" %}
+{% block content %}
+    <!-- inner banner -->
+    <section class="inner-banner py-5">
+        <div class="w3l-breadcrumb py-lg-5">
+            <div class="container pt-5 pb-sm-4 pb-2">
+                <h4 class="inner-text-title font-weight-bold pt-5">Join Us</h4>
+                <ul class="breadcrumbs-custom-path">
+                    <li><a href="">Home</a></li>
+                    <li class="active"><i class="fas fa-angle-right mx-2"></i>User registration</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- //inner banner -->
+
+    <!-- registration -->
+    <section class="premium-form-container">
+        <div class="premium-card animate-up">
+            <h3 class="premium-title">User Registration</h3>
+            <p class="premium-subtitle">Join our platform to access diagnostic services easily.</p>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 premium-input-group">
+                        <label class="premium-label">First Name</label>
+                        <input type="text" name="fname" class="premium-input" placeholder="Enter first name" required>
+                    </div>
+                    <div class="col-md-6 premium-input-group">
+                        <label class="premium-label">Last Name</label>
+                        <input type="text" name="lname" class="premium-input" placeholder="Enter last name" required>
+                    </div>
+                    <div class="col-md-6 premium-input-group">
+                        <label class="premium-label">Email Address</label>
+                        <input type="email" name="email" class="premium-input" placeholder="name@example.com" required>
+                    </div>
+                    <div class="col-md-6 premium-input-group">
+                        <label class="premium-label">Phone Number</label>
+                        <input type="number" name="phone" class="premium-input" placeholder="Enter phone number" required>
+                    </div>
+                    <div class="col-md-6 premium-input-group">
+                        <label class="premium-label">Password</label>
+                        <input type="password" name="password" class="premium-input" placeholder="Create a password" required>
+                    </div>
+                    <div class="col-md-6 premium-input-group">
+                        <label class="premium-label">Profile Image</label>
+                        <input type="file" name="image" class="premium-input" required>
+                    </div>
+                    <div class="col-md-12 premium-input-group">
+                        <label class="premium-label">Address</label>
+                        <textarea name="address" class="premium-input premium-textarea" placeholder="Enter your full address" required></textarea>
+                    </div>
+                    <div class="col-md-12 premium-input-group">
+                        <label class="premium-label">Health Status</label>
+                        <textarea name="health" class="premium-input premium-textarea" placeholder="Specify any special health conditions" required></textarea>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="premium-button">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- //registration -->
+    <!-- contact map -->
+    <!-- <section class="w3l-contacts-1">
+        <div class="contacts">
+            <div class="contacts-content">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d158858.47340002653!2d-0.24168120642536509!3d51.52855824164916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C+UK!5e0!3m2!1sen!2sin!4v1562822037850!5m2!1sen!2sin"
+                    width="100%" height="650" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <address>
+                    <h4>London</h4>
+                    <a href="mailto:hello@w3layouts.com">Email: hello@w3layouts.com</a>
+                    <a href="tel:8-800-999-800">Tel: 8-800-999-800</a>
+                </address>
+            </div>
+        </div>
+    </section> -->
+    <!-- //contact -->
+
+
+{% endblock %}
