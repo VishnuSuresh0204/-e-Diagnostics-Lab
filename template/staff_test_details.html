@@ -1,0 +1,116 @@
+{% extends "staff_home.html" %}
+{% block content %}
+
+<style>
+    th, td, sup, sub{
+        color: black;
+    }
+</style>
+
+<!-- inner banner -->
+<section class="inner-banner py-5">
+    <div class="w3l-breadcrumb py-lg-5">
+        <div class="container pt-5 pb-sm-4 pb-2">
+            <h4 class="inner-text-title font-weight-bold pt-5">Lab</h4>
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="">Home</a></li>
+                <li class="active"><i class="fas fa-angle-right mx-2"></i>Slots</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- //inner banner -->
+
+<section class="w3l-w3l-contacts-12 py-5">
+<div class="contact-top py-lg-5 py-md-4 py-2">
+<div class="container">
+
+<div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:500px;">
+    <h5 class="sub-title">Added</h5>
+    <h3 class="title-style">Slots</h3>
+</div>
+
+<div class="table-responsive">
+<table class="table table-bordered text-center">
+
+<thead class="table-dark">
+<tr>
+<th>Date</th>
+<th>Time</th>
+<th>Patient</th>
+<th>Test</th>
+<th>Mark</th>
+<th>Report</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for d in data %}
+<tr>
+
+<td>{{ d.slot.date }}</td>
+<td>{{ d.slot.time }}</td>
+
+{% if d.slot.user == None %}
+
+<td colspan="4" class="text-danger fw-bold">
+Not Booked
+</td>
+
+{% else %}
+
+<td>{{ d.slot.user.first_name }}</td>
+<td>{{ d.test.test }}</td>
+
+{% if d.slot.testStatus == 0 %}
+
+<td>
+<a href="/lab_completed?id={{d.slot.id}}">
+<button class="btn btn-outline-info">Completed</button>
+</a>
+</td>
+
+<td>
+<button class="btn btn-outline-warning" disabled>Report</button>
+{% if d.slot.report %}
+<sup>✔️</sup>
+{% else %}
+<sub>❌</sub>
+{% endif %}
+</td>
+
+{% else %}
+
+<td>
+<button class="btn btn-success" disabled>Completed</button>
+</td>
+
+<td>
+<a href="/lab_addReport?id={{d.slot.id}}">
+<button class="btn btn-outline-warning">Report</button>
+</a>
+
+{% if d.slot.report %}
+<sup>✔️</sup>
+{% else %}
+<sub>❌</sub>
+{% endif %}
+</td>
+
+{% endif %}
+
+{% endif %}
+
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "staff_home.html" %}
+{% block content %}
+
+<br><br><br><br>
+
+<div class="container">
+    <div class="card profile-card mx-auto" style="max-width:500px; border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.1);">
+
+        <div class="card-header text-center fw-bold">
+            {{ data.name }}
+        </div>
+
+        <div class="card-body">
+
+            <p class="card-text"><strong>Location:</strong> {{ data.location }}</p>
+
+            <p class="card-text"><strong>Contact:</strong> {{ data.contact }}</p>
+
+            <p class="card-text"><strong>Email:</strong> {{ data.email }}</p>
+
+            <p class="card-text"><strong>Address:</strong> {{ data.address }}</p>
+
+            <p class="card-text">
+                <strong>Status:</strong>
+                <span class="badge 
+                    {% if data.status == 'approved' %}
+                        bg-success
+                    {% elif data.status == 'pending' %}
+                        bg-warning
+                    {% else %}
+                        bg-danger
+                    {% endif %}">
+                    {{ data.status }}
+                </span>
+            </p>
+
+            <div class="text-center mt-3">
+                <a href="/update_staff/?id={{ data.id }}" class="btn btn-warning">
+                    Update Profile
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<br><br><br>
+
+{% endblock %}
