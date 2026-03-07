@@ -1,0 +1,181 @@
+{% extends "lab_home.html" %}
+{% block content %}
+
+<section class="premium-form-container" style="padding-top: 120px; padding-bottom: 60px; min-height: 100vh;">
+    <div class="container">
+        <div class="premium-card animate-up" style="max-width: 600px; margin: 0 auto;">
+            
+            <div class="text-center mb-4">
+                <div class="icon-wrapper mb-3 text-center d-inline-flex">
+                    <i class="fas fa-user-tag fa-3x" style="color: #764ba2;"></i>
+                </div>
+                <h2 class="premium-title mb-0">Assign Collector</h2>
+                <p class="premium-subtitle">Booking #{{booking.id}}</p>
+            </div>
+
+            <div class="booking-details-card mb-4 p-3 rounded shadow-sm" style="background: rgba(255,255,255,0.6); border-left: 4px solid #764ba2;">
+                <p class="mb-1"><strong>Patient:</strong> {{ booking.slot.user.first_name }} {{ booking.slot.user.last_name }}</p>
+                <p class="mb-1"><strong>Test:</strong> <span class="badge premium-badge-primary">{{ booking.test.test }}</span></p>
+                <p class="mb-0"><strong>Schedule:</strong> <span class="text-primary font-weight-bold">{{ booking.slot.date }} at {{ booking.slot.time }}</span></p>
+            </div>
+
+            <form method="post" class="premium-form">
+                {% csrf_token %}
+
+                <div class="form-group mb-4">
+                    <label class="premium-label"><i class="fas fa-hand-pointer"></i> Select a Collector</label>
+                    <div class="position-relative">
+                        <select name="collector" required class="form-control premium-input shadow-sm" style="appearance: none; padding-right: 40px; cursor: pointer;">
+                            <option value="" disabled selected>-- Choose Collector --</option>
+                            {% for collector in collectors %}
+                                {% if collector.status == "collectorApprove" %}
+                                <option value="{{ collector.id }}"
+                                {% if booking.collector and booking.collector.id == collector.id %}selected{% endif %}>
+                                    {{ collector.name }} (Contact: {{ collector.contact }})
+                                </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <i class="fas fa-chevron-down position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); color: #764ba2; pointer-events: none;"></i>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3 mt-5">
+                    <a href="/lab_slots" class="premium-button-outline text-decoration-none text-center" style="flex: 1;">
+                        <i class="fas fa-times-circle"></i> Cancel
+                    </a>
+                    <button type="submit" class="premium-button shadow-lg" style="flex: 1;">
+                        <i class="fas fa-check-circle"></i> Confirm Assignment
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<!-- Custom Styles for Premium UI -->
+<style>
+    .premium-form-container {
+        background: linear-gradient(135deg, #f5f7fa 0%, #ebf0f7 100%);
+        font-family: 'Nunito Sans', sans-serif;
+    }
+    
+    .premium-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+    
+    .animate-up {
+        animation: slideUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    }
+    
+    @keyframes slideUp {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    .icon-wrapper {
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(118, 75, 162, 0.1);
+        padding-top: 15px;
+    }
+    
+    .premium-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #2c3e50;
+        letter-spacing: -0.5px;
+    }
+    
+    .premium-subtitle {
+        color: #6c757d;
+        font-size: 1.1rem;
+        margin-top: 5px;
+        font-weight: 600;
+    }
+    
+    .premium-label {
+        font-weight: 700;
+        color: #34495e;
+        margin-bottom: 8px;
+        font-size: 1rem;
+    }
+    
+    .premium-label i {
+        color: #764ba2;
+        margin-right: 5px;
+    }
+    
+    .premium-input {
+        border-radius: 12px;
+        padding: 14px 18px;
+        border: 2px solid #e2e8f0;
+        background-color: #f8fafc;
+        transition: all 0.3s ease;
+        font-size: 1.05rem;
+        color: #2d3748;
+    }
+    
+    .premium-input:focus {
+        border-color: #764ba2;
+        box-shadow: 0 0 0 0.25rem rgba(118, 75, 162, 0.15) !important;
+        background-color: #ffffff;
+        outline: none;
+    }
+    
+    .premium-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+
+    .premium-button-outline {
+        background: transparent;
+        color: #6c757d;
+        border: 2px solid #ced4da;
+        padding: 12px 28px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+    
+    .premium-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(118, 75, 162, 0.4);
+        color: white;
+    }
+
+    .premium-button-outline:hover {
+        background: #f8f9fa;
+        color: #495057;
+        border-color: #adb5bd;
+        transform: translateY(-3px);
+    }
+
+    .premium-badge-primary {
+        background: rgba(102, 126, 234, 0.1);
+        color: #667eea;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-weight: 700;
+    }
+</style>
+
+{% endblock %}
