@@ -1,0 +1,141 @@
+/* Premium Form Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --input-focus: #764ba2;
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+}
+
+.premium-form-container {
+    font-family: 'Inter', sans-serif;
+    background: var(--primary-gradient);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.premium-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    padding: 40px;
+    transition: transform 0.3s ease;
+}
+
+.premium-card:hover {
+    transform: translateY(-5px);
+}
+
+.premium-title {
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+.premium-subtitle {
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+.premium-input-group {
+    margin-bottom: 20px;
+}
+
+.premium-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.premium-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #fdfdfd;
+}
+
+.premium-input:focus {
+    outline: none;
+    border-color: var(--input-focus);
+    box-shadow: 0 0 10px rgba(118, 75, 162, 0.1);
+    background: #fff;
+}
+
+.premium-textarea {
+    min-height: 100px;
+}
+
+.premium-button {
+    background: var(--secondary-gradient);
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
+    margin-top: 10px;
+}
+
+.premium-button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(37, 117, 252, 0.4);
+}
+
+.premium-button:active {
+    transform: scale(0.98);
+}
+
+/* File Input Styling */
+.premium-file-input {
+    background: #f8f9fa;
+    border: 2px dashed #cbd5e0;
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.premium-file-input:hover {
+    border-color: var(--input-focus);
+    background: #f1f5f9;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
