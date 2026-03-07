@@ -1,0 +1,157 @@
+{% extends "admin_home.html" %}
+{% block content %}
+
+<section class="premium-form-container" style="padding-top: 120px; padding-bottom: 60px; min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="premium-card animate-up" style="padding: 40px;">
+                    <div class="text-center mb-5">
+                        <div class="icon-wrapper mb-3 text-center d-inline-flex">
+                            <i class="fas fa-edit fa-3x" style="color: #764ba2;"></i>
+                        </div>
+                        <h2 class="premium-title mb-0">Edit Test Details</h2>
+                        <p class="premium-subtitle">Update information for test: <strong>{{ test_obj.test }}</strong></p>
+                    </div>
+
+                    <form method="post" action="/admin_edit_test/?id={{ test_obj.id }}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <label class="premium-label"><i class="fas fa-vial me-2 text-primary"></i>Test Name</label>
+                                <input type="text" class="form-control premium-input" name="test" value="{{ test_obj.test }}" required>
+                            </div>
+
+                            <div class="col-md-12 mb-4">
+                                <label class="premium-label"><i class="fas fa-align-left me-2 text-primary"></i>Description</label>
+                                <textarea class="form-control premium-input" name="description" rows="3" required>{{ test_obj.description }}</textarea>
+                            </div>
+                            
+                            <div class="col-md-12 mb-4">
+                                <label class="premium-label"><i class="fas fa-rupee-sign me-2 text-success"></i>Price (₹)</label>
+                                <input type="number" class="form-control premium-input" name="price" value="{{ test_obj.price }}" required>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn premium-btn-submit px-5 py-2">
+                                <i class="fas fa-save me-2"></i> Save Changes
+                            </button>
+                            <a href="/admin_tests" class="btn premium-btn-cancel px-5 py-2 ms-2">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Custom Styles for Premium UI -->
+<style>
+    .premium-form-container {
+        background: linear-gradient(135deg, #f5f7fa 0%, #ebf0f7 100%);
+        font-family: 'Nunito Sans', sans-serif;
+    }
+    
+    .premium-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+    
+    .animate-up {
+        animation: slideUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    }
+    
+    @keyframes slideUp {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    .icon-wrapper {
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: rgba(118, 75, 162, 0.1);
+        padding-top: 15px;
+    }
+    
+    .premium-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #2c3e50;
+        letter-spacing: -0.5px;
+    }
+    
+    .premium-subtitle {
+        color: #6c757d;
+        font-size: 1.1rem;
+        margin-top: 5px;
+        font-weight: 600;
+    }
+    
+    /* Form Inputs */
+    .premium-label {
+        font-weight: 700;
+        color: #495057;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+    
+    .premium-input {
+        border-radius: 12px;
+        border: 1px solid #ced4da;
+        padding: 12px 18px;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+        color: #495057;
+    }
+    
+    .premium-input:focus {
+        background-color: #ffffff;
+        border-color: #764ba2;
+        box-shadow: 0 0 0 0.2rem rgba(118, 75, 162, 0.15);
+        outline: none;
+    }
+    
+    /* Buttons */
+    .premium-btn-submit {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
+    }
+    
+    .premium-btn-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(118, 75, 162, 0.4);
+        color: white;
+    }
+    
+    .premium-btn-cancel {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 1px solid #dee2e6;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+    .premium-btn-cancel:hover {
+        background: #e2e6ea;
+        color: #495057;
+    }
+</style>
+
+{% endblock %}
