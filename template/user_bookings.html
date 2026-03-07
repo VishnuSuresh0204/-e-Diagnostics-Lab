@@ -1,0 +1,174 @@
+{% extends "user_home.html" %}
+{% block content %}
+
+<section class="premium-form-container" style="padding-top: 120px; padding-bottom: 60px; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh;">
+    
+    <div class="premium-card animate-up" style="max-width: 1000px; background: rgba(255, 255, 255, 0.95);">
+        <div class="text-center mb-5">
+            <h2 class="premium-title">My Test Bookings</h2>
+            <p class="premium-subtitle">Track your appointments, payments, and view your diagnostic reports</p>
+        </div>
+
+        <div class="table-responsive premium-table-container">
+            <table class="table premium-table">
+                <thead>
+                    <tr>
+                        <th>Laboratory</th>
+                        <th>Slot Details</th>
+                        <th>Diagnostic Test</th>
+                        <th>Amount</th>
+                        <th class="text-center">Status / Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if data %}
+                        {% for d in data %}
+                        <tr>
+                            <td class="font-weight-bold">
+                                <i class="fas fa-hospital-alt me-2 text-primary"></i> {{d.slot.lab.name}}
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <span class="text-dark font-weight-bold"><i class="far fa-calendar-alt me-1"></i> {{d.slot.date}}</span>
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i> {{d.slot.time}}</small>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">
+                                    {{d.test.test}}
+                                </span>
+                            </td>
+                            <td class="price-tag">₹ {{d.test.price}}</td>
+                            <td class="text-center">
+                                {% if d.slot.testStatus == 0 %}
+                                    <div class="d-flex flex-column align-items-center">
+                                        <span class="status-badge status-pending mb-2">
+                                            <i class="fas fa-clock me-1"></i> Pending
+                                        </span>
+                                        <a href="/user_edit_booking?id={{d.id}}" class="action-link-btn">
+                                            <i class="fas fa-edit me-1"></i> Reschedule
+                                        </a>
+                                    </div>
+                                {% elif d.slot.testStatus == 1 %}
+                                    <a href="/user_pay?bid={{d.id}}" class="premium-button btn-sm py-2" style="font-size: 0.85rem; max-width: 120px;">
+                                        <i class="fas fa-credit-card me-1"></i> Pay Now
+                                    </a>
+                                {% elif d.slot.testStatus == 2 %}
+                                    {% if d.slot.report %}
+                                        <a href="/static/media/{{d.slot.report}}" target="_blank" download class="action-link-btn success">
+                                            <i class="fas fa-file-download me-1"></i> Download Report
+                                        </a>
+                                    {% else %}
+                                        <span class="status-badge status-paid">
+                                            <i class="fas fa-check-circle me-1"></i> Paid, Awaiting Report
+                                        </span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <i class="fas fa-calendar-times fa-3x mb-3 d-block opacity-50"></i>
+                                You haven't booked any tests yet.
+                                <br>
+                                <a href="/user_labs/" class="btn btn-link mt-2">Find a Lab</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<style>
+    .premium-table-container {
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .premium-table {
+        margin-bottom: 0;
+        background: #fff;
+    }
+
+    .premium-table thead th {
+        background: var(--primary-gradient);
+        color: #fff;
+        border: none;
+        padding: 15px 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    .premium-table tbody td {
+        padding: 20px;
+        vertical-align: middle;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        color: #2d3436;
+    }
+
+    .premium-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .premium-table tbody tr:hover {
+        background-color: rgba(118, 75, 162, 0.02);
+    }
+
+    .price-tag {
+        font-weight: 700;
+        color: #2575fc;
+        font-size: 1.1rem;
+    }
+
+    .status-badge {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .status-pending {
+        background: rgba(231, 76, 60, 0.1);
+        color: #e74c3c;
+    }
+
+    .status-paid {
+        background: rgba(46, 204, 113, 0.1);
+        color: #2ecc71;
+    }
+
+    .action-link-btn {
+        color: #764ba2;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .action-link-btn:hover {
+        color: #667eea;
+        text-decoration: underline;
+    }
+
+    .action-link-btn.success {
+        color: #2ecc71;
+    }
+
+    .action-link-btn.success:hover {
+        color: #27ae60;
+    }
+
+    .font-weight-bold {
+        font-weight: 600;
+    }
+</style>
+
+{% endblock %}

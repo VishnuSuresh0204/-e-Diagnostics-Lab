@@ -1,0 +1,85 @@
+{% extends "user_home.html" %}
+{% block content %}
+
+<style>
+.select-box{
+width:100%;
+padding:10px;
+border:1px solid #ddd;
+border-radius:6px;
+background:white;
+font-size:16px;
+}
+
+.select-box:focus{
+outline:none;
+border-color:var(--theme-color);
+box-shadow:0 0 5px rgba(0,0,0,0.1);
+}
+</style>
+
+<!-- inner banner -->
+
+<section class="inner-banner py-5">
+<div class="w3l-breadcrumb py-lg-5">
+<div class="container pt-5 pb-sm-4 pb-2">
+<h4 class="inner-text-title font-weight-bold pt-5">User</h4>
+<ul class="breadcrumbs-custom-path">
+<li><a href="">Home</a></li>
+<li class="active"><i class="fas fa-angle-right mx-2"></i>Select Test</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- //inner banner -->
+
+<section class="w3l-w3l-contacts-12 py-5">
+<div class="contact-top py-lg-5 py-md-4 py-2">
+<div class="container">
+
+<div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:500px;">
+<h5 class="sub-title">Choose</h5>
+<h3 class="title-style">Lab Test</h3>
+</div>
+
+<div class="row justify-content-center">
+<div class="col-lg-6 col-md-8 contacts12-main">
+
+<form method="post" class="main-input">
+{% csrf_token %}
+
+<div class="mb-4">
+
+<label class="form-label fw-bold mb-2">Select Test</label>
+
+<select name="test" class="select-box text-center" required>
+
+<option value="" disabled selected>-- Select Test --</option>
+
+{% for d in data %}
+
+<option value="{{d.id}}">
+{{d.test}} (₹{{d.price}})
+</option>
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="text-center">
+<button type="submit" class="btn btn-style px-4">
+Continue Booking
+</button>
+</div>
+
+</form>
+
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+{% endblock %}

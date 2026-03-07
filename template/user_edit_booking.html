@@ -1,0 +1,81 @@
+{% extends "user_home.html" %}
+{% block content %}
+
+<section class="premium-form-container" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="premium-card animate-up" style="max-width: 600px;">
+        <div class="text-center mb-4">
+            <h2 class="premium-title">Update Your Booking</h2>
+            <p class="premium-subtitle">Select a different test for your scheduled appointment</p>
+        </div>
+
+        <div class="booking-meta-card mb-4">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <div class="icon-box">
+                        <i class="fas fa-hospital-user fa-2x"></i>
+                    </div>
+                </div>
+                <div class="col">
+                    <h5 class="mb-1 text-dark font-weight-bold">{{booking.slot.lab.name}}</h5>
+                    <p class="text-muted mb-0 small">
+                        <i class="far fa-calendar-check me-1"></i> {{booking.slot.date}} 
+                        <span class="mx-2">|</span> 
+                        <i class="far fa-clock me-1"></i> {{booking.slot.time}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="premium-input-group mb-4">
+                <label class="premium-label"><i class="fas fa-flask me-2"></i> Select New Test</label>
+                <select name="test" class="premium-input" style="appearance: auto;" required>
+                    <option value="" disabled>-- Choose a Test --</option>
+                    {% for t in tests %}
+                    <option value="{{t.id}}" {% if t.id == booking.test.id %}selected{% endif %}>
+                        {{t.test}} — ₹{{t.price}}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="text-center mt-5">
+                <button type="submit" class="premium-button" style="max-width: 250px;">
+                    <i class="fas fa-sync-alt me-2"></i> Update Selection
+                </button>
+            </div>
+            
+            <div class="text-center mt-3">
+                <a href="/user_bookings/" class="text-muted small text-decoration-none">
+                    <i class="fas fa-arrow-left me-1"></i> Back to My Bookings
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+
+<style>
+    .booking-meta-card {
+        background: rgba(118, 75, 162, 0.05);
+        border-radius: 12px;
+        padding: 15px 20px;
+        border: 1px dashed rgba(118, 75, 162, 0.3);
+    }
+    .icon-box {
+        width: 50px;
+        height: 50px;
+        background: var(--primary-gradient);
+        color: #fff;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .font-weight-bold {
+        font-weight: 600;
+    }
+</style>
+
+{% endblock %}
