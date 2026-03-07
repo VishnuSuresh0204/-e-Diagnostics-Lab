@@ -1,0 +1,70 @@
+{% extends "lab_home.html" %}
+{% block content %}
+
+<section class="inner-banner py-5">
+    <div class="w3l-breadcrumb py-lg-5">
+        <div class="container pt-5 pb-sm-4 pb-2">
+            <h4 class="inner-text-title font-weight-bold pt-5">Lab</h4>
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="/">Home</a></li>
+                <li class="active">
+                    <i class="fas fa-angle-right mx-2"></i>Add Collector
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="premium-form-container">
+    <div class="premium-card animate-up">
+        <h3 class="premium-title">Add New Collector</h3>
+        <p class="premium-subtitle">Recruit a new member to your collection staff.</p>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Full Name</label>
+                    <input type="text" name="name" class="premium-input" placeholder="Enter collector name" required>
+                </div>
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Phone Number</label>
+                    <input type="tel" name="phone" class="premium-input" placeholder="Enter phone number" required>
+                </div>
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Email Address</label>
+                    <input type="email" name="email" class="premium-input" placeholder="collector@example.com" required>
+                </div>
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Password</label>
+                    <input type="password" name="password" class="premium-input" placeholder="Assign a password" required>
+                </div>
+
+                <div class="col-md-12 premium-input-group">
+                    <label class="premium-label">Profile Image</label>
+                    <input type="file" name="image" accept="image/*" class="premium-input" required>
+                </div>
+
+                <div class="col-md-12 premium-input-group">
+                    <label class="premium-label">Address</label>
+                    <textarea name="address" rows="4" class="premium-input premium-textarea" placeholder="Enter full address" required></textarea>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="premium-button">
+                    Add Collector <i class="fas fa-plus-circle"></i>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+{% endblock %}

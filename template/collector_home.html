@@ -1,0 +1,143 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>E-diagnostics - Collector</title>
+    <!-- Google fonts -->
+    <link href="//fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- Template CSS Style link -->
+    <link rel="stylesheet" href="/static/assets/css/style-starter.css">
+</head>
+
+<body>
+    <!-- header -->
+    <header id="site-header" class="fixed-top">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="">
+                    <span></span>Ediagnostics <img src="/static/assets/images/microscope.gif" width="50px" style="border-radius: 50%;" alt="">
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/collector_home/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/collector_assignments/">My Assignments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login/">Log-out</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- toggle switch for light and dark theme -->
+                <div class="cont-ser-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- //header -->
+    {% block content %}
+    <!-- inner banner -->
+    <section class="inner-banner py-5">
+        <div class="w3l-breadcrumb py-lg-5">
+            <div class="container pt-5 pb-sm-4 pb-2">
+                <div class="text-center mb-4">
+                    {% if data.image %}
+                    <img src="/static/media/{{ data.image }}" alt="Profile Image" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    {% endif %}
+                </div>
+                <h4 class="inner-text-title font-weight-bold">Welcome, {{ data.name }}</h4>
+                <ul class="breadcrumbs-custom-path">
+                    <li><a href="">Home</a></li>
+                    <li class="active"><i class="fas fa-angle-right mx-2"></i>Dashboard</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- //inner banner -->
+    {% endblock %}
+
+    <!-- footer -->
+    <footer class="w3l-footer-29-main">
+        <div class="footer-29-w3l py-5">
+            <div class="container pt-md-5 pt-4">
+                <div class="w3l-copyright text-center mt-lg-5 mt-4 pt-sm-4 pt-3">
+                    <p class="copy-footer-29">© 2022 Laundries. All rights reserved. Design by <a
+                            href="https://w3layouts.com/" target="_blank">
+                            W3layouts</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- //footer -->
+
+    <!-- Js scripts -->
+    <button onclick="topFunction()" id="movetop" title="Go to top">
+        <span class="fas fa-level-up-alt" aria-hidden="true"></span>
+    </button>
+    <script>
+        window.onscroll = function () {
+            scrollFunction()
+        };
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <script src="/static/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/assets/js/theme-change.js"></script>
+    <script>
+        $(window).on("scroll", function () {
+            var scroll = $(window).scrollTop();
+            if (scroll >= 80) {
+                $("#site-header").addClass("nav-fixed");
+            } else {
+                $("#site-header").removeClass("nav-fixed");
+            }
+        });
+        $(".navbar-toggler").on("click", function () {
+            $("header").toggleClass("active");
+        });
+    </script>
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    {% if messages %}
+    {% for msg in messages %}
+    <script>alert("{{msg}}")</script>
+    {% endfor %}
+    {% endif %}
+</body>
+
+</html>
