@@ -1,0 +1,105 @@
+{% extends "user_home.html" %}
+{% block content %}
+
+<br><br><br><br>
+
+<section class="premium-form-container">
+    <div class="premium-card animate-up">
+        
+        <h3 class="premium-title text-center">Update Your Profile</h3>
+        <p class="premium-subtitle text-center">
+            Manage your personal information and health status.
+        </p>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">First Name</label>
+                    <input type="text" name="fname" class="premium-input"
+                        value="{{ data.first_name }}" required>
+                </div>
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Last Name</label>
+                    <input type="text" name="lname" class="premium-input"
+                        value="{{ data.last_name }}" required>
+                </div>
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Phone Number</label>
+                    <input type="tel" name="phone" class="premium-input"
+                        value="{{ data.contact }}" required>
+                </div>
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Email Address</label>
+                    <input type="email" name="email" class="premium-input"
+                        value="{{ data.email }}" required>
+                </div>
+
+                <div class="col-md-12 premium-input-group">
+                    <label class="premium-label">Full Address</label>
+                    <textarea name="address"
+                        class="premium-input premium-textarea"
+                        rows="3" required>{{ data.address }}</textarea>
+                </div>
+
+                <div class="col-md-12 premium-input-group">
+                    <label class="premium-label">Health Status</label>
+                    <textarea name="health"
+                        class="premium-input premium-textarea"
+                        rows="3" required>{{ data.health }}</textarea>
+                </div>
+
+                <div class="col-md-12 premium-input-group text-center">
+
+                    <label class="premium-label d-block mb-2">
+                        Current Profile Image
+                    </label>
+
+                    {% if data.image %}
+                        <img src="/media/{{ data.image }}"
+                            alt="Profile Image"
+                            class="profile-preview">
+                    {% else %}
+                        <p class="text-muted">No image uploaded</p>
+                    {% endif %}
+
+                    <input type="file"
+                        name="image"
+                        accept="image/*"
+                        class="premium-input mt-2">
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="premium-button">
+                    Save Changes
+                </button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<br><br><br>
+
+<style>
+
+.profile-preview{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #fff;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    margin-bottom:15px;
+}
+
+</style>
+
+{% endblock %}
