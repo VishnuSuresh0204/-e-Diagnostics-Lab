@@ -1,0 +1,100 @@
+{% extends "lab_home.html" %}
+{% block content %}
+
+<br><br><br><br>
+
+<section class="premium-form-container">
+    <div class="premium-card animate-up">
+
+        <h3 class="premium-title">Update Lab Profile</h3>
+        <p class="premium-subtitle">Keep your laboratory information up to date.</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Lab Name</label>
+                    <input type="text"
+                           name="name"
+                           class="premium-input"
+                           value="{{ lab.name }}"
+                           required>
+                </div>
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Location</label>
+                    <input type="text"
+                           name="location"
+                           class="premium-input"
+                           value="{{ lab.location }}"
+                           required>
+                </div>
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Contact Number</label>
+                    <input type="tel"
+                           name="contact"
+                           class="premium-input"
+                           value="{{ lab.contact }}"
+                           pattern="[0-9]{10}"
+                           maxlength="10"
+                           placeholder="Enter 10 digit phone number"
+                           required>
+                </div>
+
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label">Email Address</label>
+                    <input type="email"
+                           name="email"
+                           class="premium-input"
+                           value="{{ lab.email }}"
+                           required>
+                </div>
+
+                <div class="col-md-12 premium-input-group">
+                    <label class="premium-label">Full Address</label>
+                    <textarea name="address"
+                              class="premium-input premium-textarea"
+                              rows="3"
+                              required>{{ lab.address }}</textarea>
+                </div>
+
+                <div class="col-md-12 premium-input-group text-center">
+                    <label class="premium-label">Current Profile Image</label>
+
+                    {% if lab.image %}
+                    <div style="margin-bottom:15px;">
+                        <img src="/static/media/{{ lab.image }}"
+                             alt="Profile Image"
+                             style="width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,0.1);">
+                    </div>
+                    {% endif %}
+
+                    <input type="file"
+                           name="image"
+                           class="premium-input"
+                           accept="image/*">
+                </div>
+
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="premium-button">
+                    Update Profile
+                </button>
+
+                <a href="/" class="btn btn-secondary ml-2">
+                    Back
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</section>
+
+<br><br><br>
+
+{% endblock %}

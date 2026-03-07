@@ -1,0 +1,79 @@
+{% extends "lab_home.html" %}
+{% block content %}
+
+<section class="inner-banner py-5">
+    <div class="w3l-breadcrumb py-lg-5">
+        <div class="container pt-5 pb-sm-4 pb-2">
+            <h4 class="inner-text-title font-weight-bold pt-5">Lab</h4>
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="">Home</a></li>
+                <li class="active">
+                    <i class="fas fa-angle-right mx-2"></i>Collectors
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="w3l-w3l-contacts-12 py-5" id="contact">
+    <div class="contact-top py-lg-5 py-md-4 py-2">
+        <div class="container">
+
+            <div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:500px;">
+                <h5 class="sub-title">Registered</h5>
+                <h3 class="title-style">Collectors</h3>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for d in data %}
+                        <tr>
+                            <td>
+                                {% if d.image %}
+                                <img src="{{ d.image.url }}" 
+                                     alt="collector image"
+                                     style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+                                {% else %}
+                                No Image
+                                {% endif %}
+                            </td>
+
+                            <td>{{ d.name }}</td>
+                            <td>{{ d.contact }}</td>
+                            <td>{{ d.email }}</td>
+                            <td>{{ d.address }}</td>
+
+                            <td style="font-weight:600;
+                                color:{% if d.status == 'collectorApprove' %}green{% else %}red{% endif %};">
+                                
+                                {% if d.status == "collectorApprove" %}
+                                    Active
+                                {% else %}
+                                    Blocked
+                                {% endif %}
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
