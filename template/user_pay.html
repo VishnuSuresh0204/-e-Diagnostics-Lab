@@ -1,0 +1,308 @@
+{% extends "user_home.html" %}
+{% block content %}
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap');
+
+*{
+box-sizing:border-box;
+font-family:'Montserrat',sans-serif;
+font-size:1rem;
+color:white;
+}
+
+body{
+display:flex;
+justify-content:center;
+align-items:center;
+width:100vw;
+margin:0;
+overflow-x:hidden;
+background-image:linear-gradient(45deg,#36d1dc,#5b86e5,#a73737,#a044ff);
+background-size:cover;
+}
+
+#root{
+margin-top:5rem;
+display:flex;
+justify-content:space-between;
+width:57rem;
+}
+
+#card{
+position:relative;
+width:23rem;
+height:15.5rem;
+margin-bottom:3rem;
+}
+
+#card>#card-top,
+#card>#card-bottom{
+width:20rem;
+height:12.7rem;
+border-radius:10px;
+overflow:hidden;
+}
+
+#card>#card-top{
+position:absolute;
+top:0;
+left:0;
+background:linear-gradient(300deg,darkviolet,#1076ad,#083bdf,#df3008);
+background-size:240% 240%;
+animation:gradient-animation 24s ease infinite;
+}
+
+@keyframes gradient-animation{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+#card>#card-bottom{
+position:absolute;
+top:2.7rem;
+left:2.7rem;
+background:linear-gradient(300deg,darkviolet,#1076ad,#083bdf,#df3008);
+background-size:240% 240%;
+}
+
+.card-number{
+position:absolute;
+top:45%;
+left:2rem;
+font-size:1.2rem;
+opacity:.8;
+}
+
+.row-container{
+position:absolute;
+bottom:1rem;
+left:2rem;
+display:flex;
+justify-content:space-between;
+width:70%;
+}
+
+#form{
+width:27rem;
+display:flex;
+flex-direction:column;
+}
+
+#form fieldset{
+border:none;
+margin-top:1rem;
+}
+
+#form input,#form select{
+width:100%;
+padding:.5rem 1rem;
+outline:none;
+background:transparent;
+border:1px solid #A9A9A9;
+}
+
+.row-container-form{
+display:flex;
+gap:10px;
+}
+
+.button{
+color:white;
+cursor:pointer;
+background:#fb5129;
+border:1px solid #DC4039;
+border-radius:5px;
+width:100%;
+height:3rem;
+margin-top:1rem;
+}
+
+.payment-details{
+margin-top:1rem;
+}
+
+option{
+background:black;
+color:white;
+}
+</style>
+
+<div id="root">
+
+<div id="card">
+
+<div id="card-bottom"></div>
+
+<div id="card-top">
+
+<div class="card-number">
+XXXX XXXX XXXX XXXX
+</div>
+
+<div class="row-container">
+
+<div class="card-holder">
+<span>Card Holder</span>
+<span></span>
+</div>
+
+<div class="expiry">
+<span>Expires</span>
+<span>
+<span class="expiry-month">00</span> /
+<span class="expiry-year">00</span>
+</span>
+</div>
+
+<div class="cvc">
+<span>CVC</span>
+<span>___</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<form id="form" method="post" action="/payment/">
+
+{% csrf_token %}
+
+<header>
+<h2>Payment Information</h2>
+</header>
+
+<fieldset class="card-number">
+<legend>Card Number</legend>
+<input type="text"
+name="card_number"
+id="card-number"
+maxlength="19"
+placeholder="1234 5678 9123 4567"
+required>
+</fieldset>
+
+<fieldset class="card-holder">
+<legend>Card Holder</legend>
+<input type="text"
+name="card_holder"
+id="card-holder"
+placeholder="John Doe"
+required>
+</fieldset>
+
+<div class="row-container-form">
+
+<fieldset class="expiry-month">
+<legend>Month</legend>
+<select name="expiry_month" required>
+<option disabled selected>MM</option>
+<option>01</option>
+<option>02</option>
+<option>03</option>
+<option>04</option>
+<option>05</option>
+<option>06</option>
+<option>07</option>
+<option>08</option>
+<option>09</option>
+<option>10</option>
+<option>11</option>
+<option>12</option>
+</select>
+</fieldset>
+
+<fieldset class="expiry-year">
+<legend>Year</legend>
+<select name="expiry_year" required>
+<option disabled selected>YY</option>
+<option>2024</option>
+<option>2025</option>
+<option>2026</option>
+<option>2027</option>
+<option>2028</option>
+<option>2029</option>
+<option>2030</option>
+</select>
+</fieldset>
+
+<fieldset class="cvc">
+<legend>CVC</legend>
+<input type="text"
+name="cvc"
+maxlength="3"
+placeholder="CVC"
+required>
+</fieldset>
+
+</div>
+
+<div class="payment-details">
+<div class="subtotal">
+<span>Sub Total :</span>
+<span>₹{{amt}}</span>
+</div>
+</div>
+
+<input type="submit"
+class="button"
+name="submit"
+value="Submit">
+
+</form>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+let card_number_input=document.querySelector("#card-number")
+let card_number_display=document.querySelector(".card-number")
+
+let card_holder_input=document.querySelector("#card-holder")
+let card_holder_display=document.querySelector(".card-holder span:nth-child(2)")
+
+let expiry_month_select=document.querySelector("select[name='expiry_month']")
+let expiry_month_display=document.querySelector(".expiry-month")
+
+let expiry_year_select=document.querySelector("select[name='expiry_year']")
+let expiry_year_display=document.querySelector(".expiry-year")
+
+let cvc_input=document.querySelector("input[name='cvc']")
+let cvc_display=document.querySelector(".cvc span:nth-child(2)")
+
+card_number_input.onkeyup=e=>{
+let text=e.target.value
+let digits="XXXX XXXX XXXX XXXX".split('')
+for(let i=0;i<text.length;i++){digits[i]=text[i]}
+card_number_display.innerText=digits.join('')
+}
+
+card_holder_input.onkeyup=e=>{
+card_holder_display.innerText=e.target.value
+}
+
+expiry_month_select.onchange=e=>{
+expiry_month_display.innerText=e.target.value
+}
+
+expiry_year_select.onchange=e=>{
+expiry_year_display.innerText=e.target.value
+}
+
+cvc_input.onkeyup=e=>{
+let text=e.target.value
+let digits=['_','_','_']
+for(let i=0;i<text.length;i++){digits[i]=text[i]}
+cvc_display.innerText=digits.join('')
+}
+
+})
+
+</script>
+
+{% endblock %}

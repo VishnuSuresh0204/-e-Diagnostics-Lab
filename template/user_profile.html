@@ -1,0 +1,88 @@
+{% extends "user_home.html" %}
+{% block content %}
+
+<section class="premium-form-container" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="premium-card animate-up" style="max-width: 600px;">
+        <div class="text-center mb-4">
+            <div class="profile-image-wrapper mb-3">
+                {% if data.image %}
+                    <img src="{{ data.image.url }}" alt="Profile Image" class="img-fluid rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #fff;">
+                {% else %}
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Default Profile" class="img-fluid rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #fff;">
+                {% endif %}
+            </div>
+            
+            <h2 class="premium-title mb-0">{{ data.first_name }} {{ data.last_name }}</h2>
+            <p class="premium-subtitle"><i class="fas fa-user-circle"></i> Personal Profile</p>
+        </div>
+
+        <div class="profile-details-grid">
+            <div class="row">
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label"><i class="fas fa-envelope"></i> Email</label>
+                    <p class="text-dark font-weight-bold text-break">{{ data.email }}</p>
+                </div>
+                <div class="col-md-6 premium-input-group">
+                    <label class="premium-label"><i class="fas fa-phone"></i> Contact</label>
+                    <p class="text-dark font-weight-bold">{{ data.contact }}</p>
+                </div>
+            </div>
+
+            <div class="premium-input-group">
+                <label class="premium-label"><i class="fas fa-map-marker-alt"></i> Home Address</label>
+                <p class="text-dark">{{ data.address }}</p>
+            </div>
+
+            <div class="premium-input-group">
+                <label class="premium-label"><i class="fas fa-notes-medical"></i> Health Status</label>
+                <div class="health-badge">
+                    {{ data.health|default:"No updates provided" }}
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/update_user/" class="premium-button d-inline-block text-decoration-none" style="max-width: 250px;">
+                <i class="fas fa-user-edit"></i> Update Profile
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .profile-image-wrapper {
+        display: inline-block;
+        position: relative;
+    }
+    .profile-image-wrapper::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border-radius: 50%;
+        background: var(--secondary-gradient);
+        z-index: -1;
+    }
+    .profile-details-grid {
+        background: rgba(255, 255, 255, 0.5);
+        padding: 25px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .premium-label i {
+        margin-right: 8px;
+        color: #764ba2;
+    }
+    .health-badge {
+        background: rgba(118, 75, 162, 0.1);
+        color: #764ba2;
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+</style>
+
+{% endblock %}

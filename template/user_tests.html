@@ -1,0 +1,100 @@
+{% extends "user_home.html" %}
+{% block content %}
+
+<style>
+    th, td {
+        color: black;
+        vertical-align: middle;
+    }
+
+    .test-table{
+        background:white;
+        border-radius:10px;
+        overflow:hidden;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .test-table thead{
+        background:#ffc107;
+        color:black;
+        font-weight:600;
+    }
+
+    .btn-book{
+        background:#28a745;
+        border:none;
+        color:white;
+        padding:6px 15px;
+        border-radius:5px;
+        text-decoration:none;
+        font-size:14px;
+    }
+
+    .btn-book:hover{
+        background:#218838;
+        color:white;
+    }
+</style>
+
+<!-- inner banner -->
+
+<section class="inner-banner py-5">
+    <div class="w3l-breadcrumb py-lg-5">
+        <div class="container pt-5 pb-sm-4 pb-2">
+            <h4 class="inner-text-title font-weight-bold pt-5">User</h4>
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="">Home</a></li>
+                <li class="active"><i class="fas fa-angle-right mx-2"></i>Tests</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="w3l-w3l-contacts-12 py-5">
+
+<div class="container">
+
+```
+<div class="title-main text-center mx-auto mb-5" style="max-width:500px;">
+    <h5 class="sub-title">Available</h5>
+    <h3 class="title-style">Tests</h3>
+</div>
+
+<div class="table-responsive test-table">
+
+    <table class="table text-center mb-0">
+
+        <thead>
+            <tr>
+                <th>Lab</th>
+                <th>Test</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for d in data %}
+
+            <tr>
+                <td>{{d.lab.name}}</td>
+                <td><strong>{{d.test}}</strong></td>
+                <td>{{d.description}}</td>
+                <td>₹{{d.price}}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+```
+
+</div>
+
+</section>
+
+{% endblock %}
