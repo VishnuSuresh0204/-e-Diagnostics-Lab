@@ -1,74 +1,76 @@
 {% extends "staff_home.html" %}
 {% block content %}
 
-<style>
-.profile-card{
-    max-width:600px;
-    margin:auto;
-    margin-top:80px;
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+<section class="premium-form-container" style="padding-top: 100px; padding-bottom: 60px;">
+    <div class="premium-card animate-up" style="max-width: 600px; margin: auto;">
+        
+        <h3 class="premium-title text-center">Update Staff Profile</h3>
+        <p class="premium-subtitle text-center">Update your personal and contact information.</p>
+
+        <form method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+
+            <div class="premium-input-group">
+                <label class="premium-label">Name</label>
+                <input type="text" name="name" class="premium-input" value="{{ lab.name }}" pattern="^[A-Za-z ]+$" minlength="3" required>
+                <div class="invalid-feedback">Enter a valid name (min 3 chars).</div>
+            </div>
+
+            <div class="premium-input-group">
+                <label class="premium-label">Location</label>
+                <input type="text" name="location" class="premium-input" value="{{ lab.location }}" required>
+                <div class="invalid-feedback">Location is required.</div>
+            </div>
+
+            <div class="premium-input-group">
+                <label class="premium-label">Contact</label>
+                <input type="tel" name="contact" class="premium-input" value="{{ lab.contact }}" pattern="[6-9]{1}[0-9]{9}" maxlength="10" required>
+                <div class="invalid-feedback">Enter a valid 10 digit phone number.</div>
+            </div>
+
+            <div class="premium-input-group">
+                <label class="premium-label">Email Address</label>
+                <input type="email" name="email" class="premium-input" value="{{ lab.email }}" required>
+                <div class="invalid-feedback">Enter a valid email address.</div>
+            </div>
+
+            <div class="premium-input-group">
+                <label class="premium-label">Full Address</label>
+                <textarea name="address" class="premium-input premium-textarea" rows="3" minlength="10" required>{{ lab.address }}</textarea>
+                <div class="invalid-feedback">Address must be at least 10 characters.</div>
+            </div>
+
+            <div class="text-center mt-3">
+                <button type="submit" class="premium-button">Update Profile</button>
+            </div>
+
+        </form>
+
+    </div>
+</section>
+
+<!-- Bootstrap validation -->
+
+<script>
+(function () {
+'use strict'
+
+const forms = document.querySelectorAll('.needs-validation')
+
+Array.from(forms).forEach(function (form) {
+form.addEventListener('submit', function (event) {
+
+if (!form.checkValidity()) {
+event.preventDefault()
+event.stopPropagation()
 }
 
-.card-header{
-    font-size:20px;
-    font-weight:600;
-    background:#0d6efd;
-    color:white;
-}
+form.classList.add('was-validated')
 
-.form-label{
-    font-weight:500;
-}
-</style>
+}, false)
+})
 
-<div class="container">
-
-<div class="card profile-card">
-
-<div class="card-header text-center">
-Update Staff Profile
-</div>
-
-<div class="card-body">
-
-<form method="POST">
-{% csrf_token %}
-
-<div class="mb-3">
-<label class="form-label">Name</label>
-<input type="text" name="name" class="form-control" value="{{ lab.name }}" required>
-</div>
-
-<div class="mb-3">
-<label class="form-label">Location</label>
-<input type="text" name="location" class="form-control" value="{{ lab.location }}" required>
-</div>
-
-<div class="mb-3">
-<label class="form-label">Contact</label>
-<input type="text" name="contact" class="form-control" value="{{ lab.contact }}" required>
-</div>
-
-<div class="mb-3">
-<label class="form-label">Email</label>
-<input type="email" name="email" class="form-control" value="{{ lab.email }}" required>
-</div>
-
-<div class="mb-3">
-<label class="form-label">Address</label>
-<textarea name="address" class="form-control" rows="3" required>{{ lab.address }}</textarea>
-</div>
-
-<div class="text-center">
-<button type="submit" class="btn btn-primary px-4">Update</button>
-</div>
-
-</form>
-
-</div>
-</div>
-
-</div>
+})()
+</script>
 
 {% endblock %}

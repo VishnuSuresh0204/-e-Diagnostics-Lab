@@ -14,22 +14,25 @@
                         <p class="premium-subtitle">Update information for test: <strong>{{ test_obj.test }}</strong></p>
                     </div>
 
-                    <form method="post" action="/admin_edit_test/?id={{ test_obj.id }}">
+                    <form method="post" action="/admin_edit_test/?id={{ test_obj.id }}" class="needs-validation" novalidate>
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-12 mb-4">
                                 <label class="premium-label"><i class="fas fa-vial me-2 text-primary"></i>Test Name</label>
-                                <input type="text" class="form-control premium-input" name="test" value="{{ test_obj.test }}" required>
+                                <input type="text" class="form-control premium-input" name="test" value="{{ test_obj.test }}" pattern="^[A-Za-z0-9 ]+$" minlength="3" required>
+                                <div class="invalid-feedback">Enter a valid test name.</div>
                             </div>
 
                             <div class="col-md-12 mb-4">
                                 <label class="premium-label"><i class="fas fa-align-left me-2 text-primary"></i>Description</label>
-                                <textarea class="form-control premium-input" name="description" rows="3" required>{{ test_obj.description }}</textarea>
+                                <textarea class="form-control premium-input" name="description" rows="3" minlength="10" required>{{ test_obj.description }}</textarea>
+                                <div class="invalid-feedback">Description must be at least 10 characters.</div>
                             </div>
                             
                             <div class="col-md-12 mb-4">
                                 <label class="premium-label"><i class="fas fa-rupee-sign me-2 text-success"></i>Price (₹)</label>
-                                <input type="number" class="form-control premium-input" name="price" value="{{ test_obj.price }}" required>
+                                <input type="number" class="form-control premium-input" name="price" value="{{ test_obj.price }}" min="1" required>
+                                <div class="invalid-feedback">Enter a valid price (min 1).</div>
                             </div>
                         </div>
 
@@ -42,6 +45,35 @@
                             </a>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap validation -->
+
+<script>
+(function () {
+'use strict'
+
+const forms = document.querySelectorAll('.needs-validation')
+
+Array.from(forms).forEach(function (form) {
+form.addEventListener('submit', function (event) {
+
+if (!form.checkValidity()) {
+event.preventDefault()
+event.stopPropagation()
+}
+
+form.classList.add('was-validated')
+
+}, false)
+})
+
+})()
+</script>
                 </div>
             </div>
         </div>
