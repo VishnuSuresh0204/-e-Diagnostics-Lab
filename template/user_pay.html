@@ -2,204 +2,383 @@
 {% block content %}
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 *{
 box-sizing:border-box;
-font-family:'Montserrat',sans-serif;
-font-size:1rem;
-color:white;
+font-family:'Poppins',sans-serif;
 }
 
 body{
+background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.payment-wrapper{
+min-height:85vh;
 display:flex;
 justify-content:center;
 align-items:center;
-width:100vw;
-margin:0;
-overflow-x:hidden;
-background-image:linear-gradient(45deg,#36d1dc,#5b86e5,#a73737,#a044ff);
-background-size:cover;
+padding:40px 20px;
 }
 
-#root{
-margin-top:5rem;
+.payment-box{
+
+width:100%;
+max-width:950px;
+
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(18px);
+
+border-radius:18px;
+
 display:flex;
-justify-content:space-between;
-width:57rem;
+gap:40px;
+
+padding:40px;
+
+box-shadow:0 20px 50px rgba(0,0,0,.35);
 }
 
-#card{
+/* CARD */
+
+.credit-card{
+width:340px;
+height:200px;
+perspective:1000px;
+}
+
+.card-inner{
+width:100%;
+height:100%;
 position:relative;
-width:23rem;
-height:15.5rem;
-margin-bottom:3rem;
+transition:transform .6s;
+transform-style:preserve-3d;
 }
 
-#card>#card-top,
-#card>#card-bottom{
-width:20rem;
-height:12.7rem;
-border-radius:10px;
-overflow:hidden;
+.credit-card.flip .card-inner{
+transform:rotateY(180deg);
 }
 
-#card>#card-top{
+.card-front,
+.card-back{
+
 position:absolute;
-top:0;
-left:0;
-background:linear-gradient(300deg,darkviolet,#1076ad,#083bdf,#df3008);
-background-size:240% 240%;
-animation:gradient-animation 24s ease infinite;
+width:100%;
+height:100%;
+
+border-radius:15px;
+
+padding:25px;
+
+color:white;
+
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+
+backface-visibility:hidden;
+
 }
 
-@keyframes gradient-animation{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
-
-#card>#card-bottom{
-position:absolute;
-top:2.7rem;
-left:2.7rem;
-background:linear-gradient(300deg,darkviolet,#1076ad,#083bdf,#df3008);
-background-size:240% 240%;
-}
-
-.card-number{
-position:absolute;
-top:45%;
-left:2rem;
-font-size:1.2rem;
-opacity:.8;
-}
-
-.row-container{
-position:absolute;
-bottom:1rem;
-left:2rem;
+.card-back{
+transform:rotateY(180deg);
 display:flex;
-justify-content:space-between;
-width:70%;
-}
-
-#form{
-width:27rem;
-display:flex;
+align-items:center;
+justify-content:center;
 flex-direction:column;
 }
 
-#form fieldset{
-border:none;
-margin-top:1rem;
+.card-number{
+
+font-size:1.4rem;
+letter-spacing:3px;
+
+margin-top:30px;
+
 }
 
-#form input,#form select{
-width:100%;
-padding:.5rem 1rem;
-outline:none;
-background:transparent;
-border:1px solid #A9A9A9;
-}
+.card-details{
 
-.row-container-form{
 display:flex;
-gap:10px;
+justify-content:space-between;
+
+margin-top:30px;
+
+font-size:.9rem;
+
 }
 
-.button{
+.card-label{
+font-size:.65rem;
+opacity:.7;
+}
+
+.card-value{
+font-weight:500;
+}
+
+/* FORM */
+
+.payment-form{
+flex:1;
+}
+
+.payment-title{
+font-size:1.8rem;
+font-weight:600;
 color:white;
-cursor:pointer;
-background:#fb5129;
-border:1px solid #DC4039;
-border-radius:5px;
+margin-bottom:25px;
+}
+
+.form-group{
+margin-bottom:18px;
+}
+
+.form-label{
+display:block;
+color:#fff;
+font-size:.9rem;
+margin-bottom:6px;
+}
+
+.form-control{
+
 width:100%;
-height:3rem;
-margin-top:1rem;
+
+padding:12px;
+
+border-radius:10px;
+
+border:1px solid rgba(255,255,255,.35);
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
+font-size:.95rem;
+
 }
 
-.payment-details{
-margin-top:1rem;
+.form-control::placeholder{
+color:#eee;
 }
 
-option{
-background:black;
+.form-control:focus{
+
+outline:none;
+
+border-color:#fff;
+
+background:rgba(255,255,255,.25);
+
+}
+
+.row-fields{
+display:flex;
+gap:12px;
+}
+
+select.form-control{
 color:white;
 }
+
+select.form-control option{
+color:black;
+}
+
+/* TOTAL */
+
+.payment-total{
+
+margin-top:20px;
+
+padding:15px;
+
+background:rgba(255,255,255,.12);
+
+border-radius:10px;
+
+display:flex;
+justify-content:space-between;
+
+color:white;
+
+font-weight:600;
+
+}
+
+/* BUTTON */
+
+.pay-button{
+
+margin-top:20px;
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:10px;
+
+background:linear-gradient(45deg,#00f2fe,#4facfe);
+
+color:white;
+
+font-weight:600;
+
+font-size:1rem;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.pay-button:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+.payment-box{
+flex-direction:column;
+align-items:center;
+}
+
+.credit-card{
+margin-bottom:10px;
+}
+
+}
+
 </style>
 
-<div id="root">
 
-<div id="card">
+<div class="payment-wrapper">
 
-<div id="card-bottom"></div>
+<div class="payment-box">
 
-<div id="card-top">
+<!-- CARD -->
 
-<div class="card-number">
+<div class="credit-card" id="card">
+
+<div class="card-inner">
+
+<div class="card-front">
+
+<div class="card-number" id="cardNumber">
 XXXX XXXX XXXX XXXX
 </div>
 
-<div class="row-container">
+<div class="card-details">
 
-<div class="card-holder">
-<span>Card Holder</span>
-<span></span>
+<div>
+<div class="card-label">CARD HOLDER</div>
+<div class="card-value" id="cardHolder">-</div>
 </div>
 
-<div class="expiry">
-<span>Expires</span>
-<span>
-<span class="expiry-month">00</span> /
-<span class="expiry-year">00</span>
-</span>
+<div>
+<div class="card-label">EXPIRES</div>
+<div class="card-value">
+<span id="cardMonth">00</span> /
+<span id="cardYear">00</span>
 </div>
-
-<div class="cvc">
-<span>CVC</span>
-<span>___</span>
 </div>
 
 </div>
 
 </div>
+
+<div class="card-back">
+
+<div class="card-label">CVC</div>
+<div class="card-value" id="cardCVC">___</div>
+
 </div>
 
-<form id="form" method="post" action="/payment/">
+</div>
+
+</div>
+
+
+<!-- FORM -->
+
+<form method="post" action="" class="payment-form needs-validation" novalidate>
 
 {% csrf_token %}
 
-<header>
-<h2>Payment Information</h2>
-</header>
+<div class="payment-title">
 
-<fieldset class="card-number">
-<legend>Card Number</legend>
-<input type="text"
+Payment Information
+
+</div>
+
+<div class="form-group">
+
+<label class="form-label">Card Number</label>
+
+<input
+
+type="text"
+
 name="card_number"
-id="card-number"
+
+id="inputCardNumber"
+
+class="form-control"
+
+placeholder="1234 5678 9012 3456"
+
 maxlength="19"
-placeholder="1234 5678 9123 4567"
-required>
-</fieldset>
 
-<fieldset class="card-holder">
-<legend>Card Holder</legend>
-<input type="text"
+pattern="[0-9 ]{16,19}"
+
+required>
+<div class="invalid-feedback">Enter a valid 16-digit card number.</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label class="form-label">Card Holder</label>
+
+<input
+
+type="text"
+
 name="card_holder"
-id="card-holder"
+
+id="inputCardHolder"
+
+class="form-control"
+
 placeholder="John Doe"
+
+pattern="[A-Za-z ]{3,}"
+
 required>
-</fieldset>
+<div class="invalid-feedback">Enter card holder name.</div>
 
-<div class="row-container-form">
+</div>
 
-<fieldset class="expiry-month">
-<legend>Month</legend>
-<select name="expiry_month" required>
-<option disabled selected>MM</option>
+
+<div class="row-fields">
+
+<div class="form-group">
+
+<label class="form-label">Month</label>
+
+<select name="expiry_month" id="inputMonth" class="form-control" required>
+
+<option value="">MM</option>
+
 <option>01</option>
 <option>02</option>
 <option>03</option>
@@ -212,96 +391,177 @@ required>
 <option>10</option>
 <option>11</option>
 <option>12</option>
-</select>
-</fieldset>
 
-<fieldset class="expiry-year">
-<legend>Year</legend>
-<select name="expiry_year" required>
-<option disabled selected>YY</option>
-<option>2024</option>
-<option>2025</option>
+</select>
+<div class="invalid-feedback">Select month.</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label class="form-label">Year</label>
+
+<select name="expiry_year" id="inputYear" class="form-control" required>
+
+<option value="">YY</option>
+
+
 <option>2026</option>
 <option>2027</option>
 <option>2028</option>
 <option>2029</option>
 <option>2030</option>
+<option>2031</option>
+<option>2032</option>
+<option>2033</option>
+<option>2034</option>
+<option>2035</option>
+
 </select>
-</fieldset>
+<div class="invalid-feedback">Select year.</div>
 
-<fieldset class="cvc">
-<legend>CVC</legend>
-<input type="text"
+</div>
+
+
+<div class="form-group" style="max-width:100px">
+
+<label class="form-label">CVC</label>
+
+<input
+
+type="text"
+
 name="cvc"
+
+id="inputCVC"
+
 maxlength="3"
-placeholder="CVC"
+
+pattern="[0-9]{3}"
+
+class="form-control"
+
+placeholder="123"
+
 required>
-</fieldset>
+<div class="invalid-feedback">Enter 3-digit CVC.</div>
 
 </div>
 
-<div class="payment-details">
-<div class="subtotal">
-<span>Sub Total :</span>
+</div>
+
+
+<div class="payment-total">
+
+<span>Total Amount</span>
+
 <span>₹{{amt}}</span>
-</div>
+
 </div>
 
-<input type="submit"
-class="button"
-name="submit"
-value="Submit">
+
+<button class="pay-button" type="submit">
+
+Pay Securely
+
+</button>
 
 </form>
 
 </div>
 
+</div>
+
+
 <script>
 
-document.addEventListener("DOMContentLoaded",()=>{
+const card=document.getElementById("card")
 
-let card_number_input=document.querySelector("#card-number")
-let card_number_display=document.querySelector(".card-number")
+const cardNumberInput=document.getElementById("inputCardNumber")
 
-let card_holder_input=document.querySelector("#card-holder")
-let card_holder_display=document.querySelector(".card-holder span:nth-child(2)")
+const cardHolderInput=document.getElementById("inputCardHolder")
 
-let expiry_month_select=document.querySelector("select[name='expiry_month']")
-let expiry_month_display=document.querySelector(".expiry-month")
+const monthInput=document.getElementById("inputMonth")
 
-let expiry_year_select=document.querySelector("select[name='expiry_year']")
-let expiry_year_display=document.querySelector(".expiry-year")
+const yearInput=document.getElementById("inputYear")
 
-let cvc_input=document.querySelector("input[name='cvc']")
-let cvc_display=document.querySelector(".cvc span:nth-child(2)")
+const cvcInput=document.getElementById("inputCVC")
 
-card_number_input.onkeyup=e=>{
-let text=e.target.value
-let digits="XXXX XXXX XXXX XXXX".split('')
-for(let i=0;i<text.length;i++){digits[i]=text[i]}
-card_number_display.innerText=digits.join('')
-}
+cardNumberInput.addEventListener("input",e=>{
 
-card_holder_input.onkeyup=e=>{
-card_holder_display.innerText=e.target.value
-}
+let value=e.target.value.replace(/\D/g,'')
 
-expiry_month_select.onchange=e=>{
-expiry_month_display.innerText=e.target.value
-}
+let formatted=value.match(/.{1,4}/g)?.join(" ") || ""
 
-expiry_year_select.onchange=e=>{
-expiry_year_display.innerText=e.target.value
-}
+e.target.value=formatted
 
-cvc_input.onkeyup=e=>{
-let text=e.target.value
-let digits=['_','_','_']
-for(let i=0;i<text.length;i++){digits[i]=text[i]}
-cvc_display.innerText=digits.join('')
-}
+let placeholder="XXXX XXXX XXXX XXXX"
+
+document.getElementById("cardNumber").innerText=
+
+formatted+placeholder.substring(formatted.length)
 
 })
+
+cardHolderInput.addEventListener("input",e=>{
+
+document.getElementById("cardHolder").innerText=
+
+e.target.value || "-"
+
+})
+
+monthInput.addEventListener("change",e=>{
+
+document.getElementById("cardMonth").innerText=e.target.value
+
+})
+
+yearInput.addEventListener("change",e=>{
+
+document.getElementById("cardYear").innerText=e.target.value.slice(2)
+
+})
+
+cvcInput.addEventListener("focus",()=>{
+
+card.classList.add("flip")
+
+})
+
+cvcInput.addEventListener("blur",()=>{
+
+card.classList.remove("flip")
+
+})
+
+cvcInput.addEventListener("input",e=>{
+
+let val=e.target.value.replace(/\D/g,'')
+
+e.target.value=val
+
+document.getElementById("cardCVC").innerText=
+
+val.padEnd(3,"_")
+
+})
+
+// Bootstrap validation
+(function () {
+  'use strict'
+  const forms = document.querySelectorAll('.needs-validation')
+  Array.from(forms).forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
 
 </script>
 
