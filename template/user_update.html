@@ -11,7 +11,7 @@
             Manage your personal information and health status.
         </p>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
             {% csrf_token %}
 
             <div class="row">
@@ -19,39 +19,45 @@
                 <div class="col-md-6 premium-input-group">
                     <label class="premium-label">First Name</label>
                     <input type="text" name="fname" class="premium-input"
-                        value="{{ data.first_name }}" required>
+                        value="{{ data.first_name }}" pattern="^[A-Za-z ]+$" minlength="2" required>
+                    <div class="invalid-feedback">Enter a valid first name.</div>
                 </div>
 
                 <div class="col-md-6 premium-input-group">
                     <label class="premium-label">Last Name</label>
                     <input type="text" name="lname" class="premium-input"
-                        value="{{ data.last_name }}" required>
+                        value="{{ data.last_name }}" pattern="^[A-Za-z ]+$" minlength="1" required>
+                    <div class="invalid-feedback">Enter a valid last name.</div>
                 </div>
 
                 <div class="col-md-6 premium-input-group">
                     <label class="premium-label">Phone Number</label>
                     <input type="tel" name="phone" class="premium-input"
-                        value="{{ data.contact }}" required>
+                        value="{{ data.contact }}" pattern="[6-9]{1}[0-9]{9}" maxlength="10" required>
+                    <div class="invalid-feedback">Enter a valid 10 digit phone number.</div>
                 </div>
 
                 <div class="col-md-6 premium-input-group">
                     <label class="premium-label">Email Address</label>
                     <input type="email" name="email" class="premium-input"
                         value="{{ data.email }}" required>
+                    <div class="invalid-feedback">Enter a valid email address.</div>
                 </div>
 
                 <div class="col-md-12 premium-input-group">
                     <label class="premium-label">Full Address</label>
                     <textarea name="address"
                         class="premium-input premium-textarea"
-                        rows="3" required>{{ data.address }}</textarea>
+                        rows="3" minlength="10" required>{{ data.address }}</textarea>
+                    <div class="invalid-feedback">Address must be at least 10 characters.</div>
                 </div>
 
                 <div class="col-md-12 premium-input-group">
                     <label class="premium-label">Health Status</label>
                     <textarea name="health"
                         class="premium-input premium-textarea"
-                        rows="3" required>{{ data.health }}</textarea>
+                        rows="3" minlength="5" required>{{ data.health }}</textarea>
+                    <div class="invalid-feedback">Provide health status (min 5 chars).</div>
                 </div>
 
                 <div class="col-md-12 premium-input-group text-center">
@@ -83,6 +89,32 @@
             </div>
 
         </form>
+    </div>
+</section>
+
+<!-- Bootstrap validation -->
+
+<script>
+(function () {
+'use strict'
+
+const forms = document.querySelectorAll('.needs-validation')
+
+Array.from(forms).forEach(function (form) {
+form.addEventListener('submit', function (event) {
+
+if (!form.checkValidity()) {
+event.preventDefault()
+event.stopPropagation()
+}
+
+form.classList.add('was-validated')
+
+}, false)
+})
+
+})()
+</script>
     </div>
 </section>
 
